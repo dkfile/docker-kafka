@@ -1,0 +1,25 @@
+kafkaserver2:
+  build: .
+  ports:
+      - "9094:9094"
+  links:
+      - zookeeper
+  command: bin/kafka-server-start.sh config/server-2.properties
+kafkaserver1:
+  build: .
+  ports:
+      - "9093:9093"
+  links:
+      - zookeeper
+  command: bin/kafka-server-start.sh config/server-1.properties
+kafkaserver0:
+  build: .
+  ports:
+      - "9092:9092"
+  links:
+      - zookeeper
+  command: bin/kafka-server-start.sh config/server.properties
+zookeeper:
+  build: .
+  ports:
+      - "2181:2181"

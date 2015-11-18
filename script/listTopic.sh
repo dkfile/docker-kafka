@@ -1,0 +1,1 @@
+docker exec -it dockerkafka_zookeeper_1 bin/kafka-topics.sh --list --zookeeper localhost:2181
