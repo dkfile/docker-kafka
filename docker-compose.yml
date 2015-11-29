@@ -1,25 +1,14 @@
-kafkaserver2:
-  build: .
-  ports:
-      - "9094:9094"
-  links:
-      - zookeeper
-  command: bin/kafka-server-start.sh config/server-2.properties
-kafkaserver1:
-  build: .
-  ports:
-      - "9093:9093"
-  links:
-      - zookeeper
-  command: bin/kafka-server-start.sh config/server-1.properties
-kafkaserver0:
-  build: .
-  ports:
-      - "9092:9092"
-  links:
-      - zookeeper
-  command: bin/kafka-server-start.sh config/server.properties
 zookeeper:
+  image: wurstmeister/zookeeper
+  ports: 
+    - "2181:2181"
+kafka:
   build: .
   ports:
-      - "2181:2181"
+    - "9092"
+  links: 
+    - zookeeper:zk
+  environment:
+    KAFKA_ADVERTISED_HOST_NAME: 192.168.1.112
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
